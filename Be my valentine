@@ -1,1 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine?</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #F8E0E6;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .buttons {
+            display: flex;
+            gap: 30px; /* Adds space between the buttons */
+        }
+        .btn {
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .yes-btn {
+            background-color: #ff4d6d;
+            color: white;
+            border-radius: 10px;
+            font-size: 18px;
+        }
+        .no-btn {
+            background-color: #333;
+            color: white;
+            border-radius: 10px;
+            font-size: 18px;
+        }
+        #image-container img {
+            width: 200px;
+            height: auto;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
 
+    <h1 id="question">Will you be my Valentine? 💖</h1>
+    <div class="buttons">
+        <button class="btn yes-btn" id="yesBtn">Yes</button>
+        <button class="btn no-btn" id="noBtn">No</button>
+    </div>
+
+    <div id="image-container">
+        <img id="catImg" src="" alt="Sad Cat">
+    </div>
+
+    <script>
+        let yesBtn = document.getElementById('yesBtn');
+        let noBtn = document.getElementById('noBtn');
+        let catImg = document.getElementById('catImg');
+
+        let sadCats = [
+            "/storage/emulated/0/Download/0ca51f014b3a6d81cda589ac5f1d85e0.jpg",
+            "/storage/emulated/0/Download/75beb555a1f335c7f9289822f5006218.jpg",
+            "/storage/emulated/0/Download/3e8409dcdd012b4bcda84a710f2d1052.jpg",
+            "/storage/emulated/0/Download/6bb85abffe9b26a9f7c6f339708a9a7c.jpg",
+            "/storage/emulated/0/Download/communityIcon_rooie4129n6e1.png",
+            "/storage/emulated/0/Download/CTxVkEkJinv-png__700.jpg",
+            "/storage/emulated/0/Download/anh-meme-meo-khoc-cuc-de-thuong_042216372.jpg"
+        ];
+
+        let happyCat = "/storage/emulated/0/Download/8bf948e797bc540f7cbdae0c5430319d.jpg";
+        let catIndex = 0;
+        let yesSize = 18; // Initial font size of Yes button
+
+        let noButtonStates = [
+            { backgroundColor: '#333', color: 'white', text: 'No' },
+            { backgroundColor: '#f44336', color: 'yellow', text: 'NOPE' },
+            { backgroundColor: '#4caf50', color: 'white', text: 'Nah' },
+            { backgroundColor: '#2196f3', color: 'white', text: 'Nooo' },
+            { backgroundColor: '#ff9800', color: 'black', text: 'Nuh-uh' }
+        ];
+
+        let noPhrases = [
+            "Don't do this to me!",
+            "Please, not like this!",
+            "I can't take it! 😢",
+            "Why would you hurt me like this?",
+            "Oh no! Not the rejection!",
+            "I'm not ready for this!",
+            "You're breaking my heart!"
+        ];
+        
+        let stateIndex = 0;
+        let phraseIndex = 0;
+
+        noBtn.addEventListener('click', function() {
+            // Change the "No" button appearance (phase) every time it is pressed
+            noBtn.style.backgroundColor = noButtonStates[stateIndex].backgroundColor;
+            noBtn.style.color = noButtonStates[stateIndex].color;
+            noBtn.textContent = noButtonStates[stateIndex].text;
+
+            // Update the phrase each time the "No" button is pressed
+            noBtn.textContent = noPhrases[phraseIndex];
+
+            // Move to the next state and phrase
+            stateIndex = (stateIndex + 1) % noButtonStates.length;
+            phraseIndex = (phraseIndex + 1) % noPhrases.length;
+
+            // Make "Yes" button bigger
+            yesSize *= 1.2; // Increase size each time
+            yesBtn.style.fontSize = `${yesSize}px`;
+            yesBtn.style.padding = `${yesSize / 3}px ${yesSize / 2}px`;
+
+            // Change sad cat image
+            catImg.src = sadCats[catIndex % sadCats.length];
+            catImg.style.display = "block";
+            catIndex++;
+        });
+
+        yesBtn.addEventListener('click', function() {
+            catImg.src = happyCat; // Show happy cat
+            catImg.style.display = "block";
+            alert("Yay! 💖 Can't wait for Valentine's!");
+        });
+    </script>
+
+</body>
+</html>
